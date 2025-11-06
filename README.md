@@ -61,16 +61,21 @@ If you don't have these components, use `simple_demo.py` to experiment quickly. 
 Presentation and further info
 - The project presentation `MindGuard_An_Intelligent_Assistant_for_Student_Stress_Management_FinalProoposal.pptx` appears in the repository root. It likely contains project motivation, dataset descriptions, and proposed model architectures. If you want, I can extract its text and slides into a Markdown summary (I can do that automatically if you want me to install and run `python-pptx` locally).
 
-Files added/changed in this update
-- `README.md` — this file (expanded with aim, goals, and instructions).
-- `data/StressLevelDataset.csv` — small synthetic sample dataset (so the EDA and demo can run).
-- `simple_demo.py` — small training & predict demo using scikit-learn.
-- `requirements.txt` — updated with extra packages for the demo and optional PPTX extraction.
+ Files added/changed in this update
+ - `README.md` — this file (expanded with aim, goals, and instructions).
+ - `data/StressLevelDataset.csv` — small synthetic sample dataset (so the EDA and demo can run).
+ - `simple_demo.py` — small training & predict demo using scikit-learn.
+ - `requirements.txt` — updated with extra packages for the demo and optional PPTX extraction.
 
-Next steps I can take (pick any):
-- Extract the PPTX into Markdown and embed slide summaries into this README.
-- Convert `app.py` to use the scikit-learn model so Streamlit runs without H2O/Java.
-- Add unit tests and a small CI workflow to validate the demo.
+ Screenshots
+ -----------------
+ Below are example screenshots of the application UI. These are illustrative SVG mockups created from the app layout so you can preview the UI without running the Streamlit app. The images are stored in `assets/screenshots/`.
 
+ Main interface (sliders and assess button):
 
+ ![Main view](assets/screenshots/main_view.svg)
+
+ Recommendations / result view:
+
+ ![Recommendations view](assets/screenshots/recommendations_view.svg)
 ---

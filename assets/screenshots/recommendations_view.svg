@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600">
+  <style>
+    .bg { fill: #ffffff; }
+    .card { fill: #ffffff; stroke: #e6edf3; stroke-width: 1; rx: 8; }
+    .title { font: 26px 'Segoe UI', Roboto, Arial; fill: #0f172a; }
+    .label { font: 14px 'Segoe UI', Roboto, Arial; fill: #334155; }
+    .pill { fill: #f0f9ff; stroke: #a7f3d0; rx: 6; }
+    .recommend { font: 14px 'Segoe UI', Roboto, Arial; fill: #022c22; }
+  </style>
+
+  <rect class="bg" width="100%" height="100%" />
+  <g transform="translate(40,30)">
+    <text class="title">💡 Your Personalized Recommendations</text>
+    <text class="label" y="36">Support and actionable steps tailored to your assessed stress level.</text>
+
+    <rect class="card" x="0" y="70" width="980" height="480" />
+
+    <g transform="translate(20,90)">
+      <rect class="pill" x="0" y="0" width="940" height="60" />
+      <text class="recommend" x="18" y="36">Support and validation: It sounds like you are going through a difficult period — that's understandable and you're not alone.</text>
+
+      <rect class="pill" x="0" y="80" width="940" height="140" />
+      <text class="recommend" x="18" y="110">1. Try a 15-minute wind-down routine before bed to improve sleep quality.</text>
+      <text class="recommend" x="18" y="140">2. Break study tasks into 25-minute focused sessions (Pomodoro) to reduce study load stress.</text>
+      <text class="recommend" x="18" y="170">3. Reach out to one trusted peer or a faculty member this week to discuss career concerns.</text>
+
+      <rect class="pill" x="0" y="240" width="940" height="60" />
+      <text class="recommend" x="18" y="276">If symptoms are severe or persistent, consider contacting campus mental health services.</text>
+    </g>
+  </g>
+</svg>
