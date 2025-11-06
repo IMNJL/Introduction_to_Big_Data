@@ -1,9 +1,14 @@
-pandas 
-numpy 
-matplotlib 
-seaborn 
-h2o 
-streamlit 
-google-generativeai 
+pandas
+numpy
+matplotlib
+seaborn
+h2o
+streamlit
+google-generativeai
 python-dotenv
+
+# Added for lightweight demo and optional utilities
+scikit-learn
+joblib
+python-pptx  # optional: extract text from presentation
 
