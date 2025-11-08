@@ -1,18 +1,39 @@
 name: Build and publish static demo site
 
 on:
+  # Run on pushes to any branch (except the generated gh-pages branch) so CI checks run before merge
   push:
+    # Run on all branches except the generated gh-pages branch
+    branches-ignore:
+      - 'gh-pages'
+    # Ignore generated artifacts to avoid workflow retrigger loops
+    paths-ignore:
+      - 'docs/**'
+      - 'rf_stress_model.joblib'
+  # Also run the workflow on pull requests targeting main so you can see results before merging
+  pull_request:
     branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - 'rf_stress_model.joblib'
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    concurrency:
+      # Use a per-branch concurrency group so runs for different branches do not cancel each other
+      group: publish-docs-${{ github.ref_name }}
+      cancel-in-progress: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -29,10 +50,12 @@ jobs:
           python simple_demo.py
           python generate_site.py
 
-      - name: Commit generated docs
-        uses: EndBug/add-and-commit@v9
+      - name: Deploy site to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          author_name: github-actions[bot]
-          author_email: github-actions[bot]@users.noreply.github.com
-          message: "ci: generate site (docs)"
-          add: 'docs'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          # keep repository history small by not committing other files
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
