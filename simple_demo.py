@@ -23,9 +23,18 @@ def train_and_save(df, model_path='rf_stress_model.joblib'):
     X = df.drop(columns=['stress_level'])
     y = df['stress_level']
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.33, random_state=42, stratify=y
-    )
+    # Try a stratified split; if the dataset is very small this can fail
+    # because the requested test set would contain fewer samples than classes.
+    try:
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.33, random_state=42, stratify=y
+        )
+    except ValueError as e:
+        print("\nWarning: stratified train/test split failed:", e)
+        print("Falling back to a non-stratified split for this small dataset.")
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.33, random_state=42, stratify=None
+        )
 
     clf = RandomForestClassifier(n_estimators=100, random_state=42)
     clf.fit(X_train, y_train)

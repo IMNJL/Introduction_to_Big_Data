@@ -25,8 +25,8 @@ __pycache__/
 *.pyo
 *.pyd
 *.pyclass
-.env
-.env.*
+# .env
+# .env.*
 venv/
 venv*/
 .venv/
@@ -79,3 +79,6 @@ coverage.xml
 .cache/
 *.bak
 *.swp
+
+
+REPOSITORY_DETAILS.md

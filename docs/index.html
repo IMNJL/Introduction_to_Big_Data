@@ -1,0 +1,32 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MindGuard Demo</title>
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; background:#f8fafc; color:#0f172a; padding:24px }
+      .card { background: #fff; border-radius:8px; padding:18px; box-shadow: 0 4px 14px rgba(2,6,23,0.06); max-width:900px }
+      h1 { margin-top:0 }
+      .muted { color:#475569 }
+      .pill { background:#ecfeff; padding:8px 12px; border-radius:6px; display:inline-block; margin-top:8px }
+      pre { background:#0f172a; color:#f8fafc; padding:12px; border-radius:6px; overflow:auto }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>MindGuard — Live demo (static)</h1>
+      <p class="muted">This static page is auto-generated from the repository demo model. It shows a sample input, the predicted stress level, and simple recommendations.</p>
+
+      <h3>Sample input</h3>
+      <pre>{'sleep_quality': 3, 'teacher_student_relationship': 4, 'blood_pressure': 2, 'future_career_concerns': 3, 'depression': 8, 'academic_performance': 4, 'social_support': 2, 'self_esteem': 18, 'safety': 2, 'headache': 1, 'anxiety_level': 12, 'mental_health_history': 0, 'breathing_problem': 2, 'noise_level': 2, 'living_conditions': 2, 'basic_needs': 2, 'study_load': 2, 'peer_pressure': 2, 'extracurricular_activities': 1, 'bullying': 0}</pre>
+
+      <h3>Predicted stress level</h3>
+      <div class="pill">1 (Medium)</div>
+
+      <h3 style="margin-top:18px">Recommendation</h3>
+      <p>You're assessed at MEDIUM stress. Try 15-minute wind-down routines before bed, Pomodoro study blocks (25/5), and discuss career concerns with a mentor.</p>
+    </div>
+  </body>
+</html>

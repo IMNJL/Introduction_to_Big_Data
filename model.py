@@ -10,11 +10,18 @@ plt.rcParams['figure.figsize'] = (12, 8)
 
 # --- 2. Load and Initial Data Inspection ---
 print("--- Loading Data ---")
-try:
-    df = pd.read_csv('StressLevelDataset.csv')
-    print("Dataset loaded successfully.")
-except FileNotFoundError:
-    print("Error: 'StressLevelDataset.csv' not found. Ensure it is in the same directory.")
+df = None
+# Try the repository root first, then the data/ folder.
+for path in ("StressLevelDataset.csv", "data/StressLevelDataset.csv"):
+    try:
+        df = pd.read_csv(path)
+        print(f"Dataset loaded successfully from '{path}'.")
+        break
+    except FileNotFoundError:
+        continue
+
+if df is None:
+    print("Error: 'StressLevelDataset.csv' not found. Ensure it is in the repository root or in the data/ folder.")
     exit()
 
 print("\n--- First 5 rows of the dataset: ---")
