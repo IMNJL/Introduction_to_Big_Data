@@ -1,8 +1,10 @@
 name: Build and publish static demo site
 
 on:
-  # Run on pushes to any branch so CI checks run before merge
+  # Run on pushes to any branch (except the generated gh-pages branch) so CI checks run before merge
   push:
+    # Do not run on the generated gh-pages branch to avoid loops
+    branches-ignore: [ 'gh-pages' ]
     # Ignore generated artifacts to avoid workflow retrigger loops
     paths-ignore:
       - 'docs/**'
@@ -46,21 +48,12 @@ jobs:
           python simple_demo.py
           python generate_site.py
 
-      - name: Commit generated docs and model artifact
-        uses: EndBug/add-and-commit@v9
+      - name: Deploy site to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          author_name: github-actions[bot]
-          author_email: github-actions[bot]@users.noreply.github.com
-          message: "ci: generate site (docs) and model"
-          add: 'docs rf_stress_model.joblib'
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: docs
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          # keep repository history small by not committing other files
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
