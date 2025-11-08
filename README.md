@@ -61,7 +61,7 @@ If you don't have these components, use `simple_demo.py` to experiment quickly. 
 Presentation and further info
 - The project presentation `MindGuard_An_Intelligent_Assistant_for_Student_Stress_Management_FinalProoposal.pptx` appears in the repository root. It likely contains project motivation, dataset descriptions, and proposed model architectures. If you want, I can extract its text and slides into a Markdown summary (I can do that automatically if you want me to install and run `python-pptx` locally).
 
-Environment variables
+## Environment variables
 ```
 GOOGLE_API_KEY=your_google_api_key_here
 ```
