@@ -3,16 +3,27 @@ name: Build and publish static demo site
 on:
   push:
     branches: [ main ]
+    # Ignore pushes that come from this workflow committing generated artifacts
+    paths-ignore:
+      - 'docs/**'
+      - 'rf_stress_model.joblib'
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    concurrency:
+      group: 'publish-docs'
+      cancel-in-progress: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -29,10 +40,21 @@ jobs:
           python simple_demo.py
           python generate_site.py
 
-      - name: Commit generated docs
+      - name: Commit generated docs and model artifact
         uses: EndBug/add-and-commit@v9
         with:
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
-          message: "ci: generate site (docs)"
-          add: 'docs'
+          message: "ci: generate site (docs) and model"
+          add: 'docs rf_stress_model.joblib'
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: docs
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
