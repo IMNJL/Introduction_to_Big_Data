@@ -3,8 +3,9 @@ name: Build and publish static demo site
 on:
   # Run on pushes to any branch (except the generated gh-pages branch) so CI checks run before merge
   push:
-    # Do not run on the generated gh-pages branch to avoid loops
-    branches-ignore: [ 'gh-pages' ]
+    # Run on all branches except the generated gh-pages branch
+    branches-ignore:
+      - 'gh-pages'
     # Ignore generated artifacts to avoid workflow retrigger loops
     paths-ignore:
       - 'docs/**'
@@ -25,7 +26,8 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     concurrency:
-      group: 'publish-docs'
+      # Use a per-branch concurrency group so runs for different branches do not cancel each other
+      group: publish-docs-${{ github.ref_name }}
       cancel-in-progress: true
     steps:
       - name: Checkout repository
