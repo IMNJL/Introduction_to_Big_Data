@@ -1,9 +1,15 @@
 name: Build and publish static demo site
 
 on:
+  # Run on pushes to any branch so CI checks run before merge
   push:
+    # Ignore generated artifacts to avoid workflow retrigger loops
+    paths-ignore:
+      - 'docs/**'
+      - 'rf_stress_model.joblib'
+  # Also run the workflow on pull requests targeting main so you can see results before merging
+  pull_request:
     branches: [ main ]
-    # Ignore pushes that come from this workflow committing generated artifacts
     paths-ignore:
       - 'docs/**'
       - 'rf_stress_model.joblib'
