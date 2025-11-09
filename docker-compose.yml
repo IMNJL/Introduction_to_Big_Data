@@ -1,0 +1,13 @@
+services:
+  mindguard:
+    build: .
+    image: mindguard:latest
+    ports:
+      - "8501:8501"
+    volumes:
+      # Mount current repo (read-only) so edits are visible during development
+      - ./:/app:ro
+    environment:
+      # Forward GOOGLE_API_KEY from host or .env
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    restart: unless-stopped

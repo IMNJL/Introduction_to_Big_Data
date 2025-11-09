@@ -92,3 +92,25 @@ If you rely on Gemini for richer responses, monitor your Google Cloud quota and 
  Recommendations / result view:
 
  ![Recommendations view](assets/screenshots/recommendations_view.svg)
+
+Docker / container deployment
+--------------------------------
+I added a Dockerfile and docker-compose configuration so you can run the Streamlit app in a container or publish the image to a container registry.
+
+Run locally with Docker Compose
+
+1. Build and run:
+```bash
+docker compose up --build
+```
+2. Open the app at: http://localhost:8501
+
+Notes:
+- The container reads `GOOGLE_API_KEY` from the environment. You can provide it with `export GOOGLE_API_KEY=...` before running `docker compose up`, or create a `.env` file with that variable (do not commit secrets).
+- The image exposes port 8501.
+
+Publish image automatically (GitHub)
+
+- I added a GitHub Actions workflow `.github/workflows/docker-publish.yml`. On push to `main` it builds the image and pushes it to GitHub Container Registry (GHCR) as `ghcr.io/<owner>/mindguard:latest`.
+- After pushing, you can deploy that container image to any hosting provider that accepts Docker images (Render, Fly.io, Railway, DigitalOcean App Platform, etc.).
+
