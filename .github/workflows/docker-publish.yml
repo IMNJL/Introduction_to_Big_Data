@@ -28,9 +28,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Compute lowercase owner
+        id: owner_lower
+        run: |
+          # GitHub repository_owner can contain uppercase letters; container registries require lowercase
+          owner=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "owner=$owner" >> "$GITHUB_OUTPUT"
+
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/mindguard:latest
+          tags: ghcr.io/${{ steps.owner_lower.outputs.owner }}/mindguard:latest
           file: ./Dockerfile
