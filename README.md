@@ -112,5 +112,5 @@ Notes:
 Publish image automatically (GitHub)
 
 - I added a GitHub Actions workflow `.github/workflows/docker-publish.yml`. On push to `main` it builds the image and pushes it to GitHub Container Registry (GHCR) as `ghcr.io/<owner>/mindguard:latest`.
-- After pushing, you can deploy that container image to any hosting provider that accepts Docker images (Render, Fly.io, Railway, DigitalOcean App Platform, etc.).
+
 
