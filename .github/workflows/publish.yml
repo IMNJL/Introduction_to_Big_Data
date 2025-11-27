@@ -19,6 +19,7 @@ on:
 
 permissions:
   contents: write
+  packages: write
   pages: write
   id-token: write
 
@@ -55,10 +56,10 @@ jobs:
       - name: Set image name
         id: set-image
         run: |
-          # create lowercase image name (GHCR requires lowercase names)
-          repo_lower=$(echo "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')
-          image_latest="ghcr.io/${repo_lower}/mindguard:latest"
-          image_sha="ghcr.io/${repo_lower}/mindguard:${GITHUB_SHA}"
+          # create lowercase owner name (GHCR requires lowercase owner/org)
+          owner_lower=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          image_latest="ghcr.io/${owner_lower}/mindguard:latest"
+          image_sha="ghcr.io/${owner_lower}/mindguard:${GITHUB_SHA}"
           echo "image_latest=$image_latest" >> $GITHUB_OUTPUT
           echo "image_sha=$image_sha" >> $GITHUB_OUTPUT
 
