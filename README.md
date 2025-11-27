@@ -61,6 +61,20 @@ If you don't have these components, use `simple_demo.py` to experiment quickly. 
 Presentation and further info
 - The project presentation `MindGuard_An_Intelligent_Assistant_for_Student_Stress_Management_FinalProoposal.pptx` appears in the repository root. It likely contains project motivation, dataset descriptions, and proposed model architectures. If you want, I can extract its text and slides into a Markdown summary (I can do that automatically if you want me to install and run `python-pptx` locally).
 
+## Environment variables
+```
+GOOGLE_API_KEY=your_google_api_key_here
+```
+
+If `GOOGLE_API_KEY` is set, the Streamlit app (`app.py`) will call the Google Generative AI (Gemini) to create personalized recommendations. If the key is not set, the app now provides a safe, local fallback set of recommendations so the UI still works without external APIs.
+
+Note about Gemini quotas and errors
+- The Gemini API enforces quotas and rate limits. If your project exceeds the quota (or the API returns rate-limit errors), the application will now:
+   1. show a concise warning in the UI informing you that the external AI is unavailable, and
+   2. use a safe local fallback recommendation generator so users still receive helpful, non-medical advice.
+
+If you rely on Gemini for richer responses, monitor your Google Cloud quota and billing, or use a paid plan to increase rate limits. The app logs the full API error to the server console for debugging but intentionally avoids showing raw API errors in the UI.
+
  Files added/changed in this update
  - `README.md` — this file (expanded with aim, goals, and instructions).
  - `data/StressLevelDataset.csv` — small synthetic sample dataset (so the EDA and demo can run).
@@ -78,4 +92,25 @@ Presentation and further info
  Recommendations / result view:
 
  ![Recommendations view](assets/screenshots/recommendations_view.svg)
----
+
+Docker / container deployment
+--------------------------------
+I added a Dockerfile and docker-compose configuration so you can run the Streamlit app in a container or publish the image to a container registry.
+
+Run locally with Docker Compose
+
+1. Build and run:
+```bash
+docker compose up --build
+```
+2. Open the app at: http://localhost:8501
+
+Notes:
+- The container reads `GOOGLE_API_KEY` from the environment. You can provide it with `export GOOGLE_API_KEY=...` before running `docker compose up`, or create a `.env` file with that variable (do not commit secrets).
+- The image exposes port 8501.
+
+Publish image automatically (GitHub)
+
+- I added a GitHub Actions workflow `.github/workflows/docker-publish.yml`. On push to `main` it builds the image and pushes it to GitHub Container Registry (GHCR) as `ghcr.io/<owner>/mindguard:latest`.
+
+

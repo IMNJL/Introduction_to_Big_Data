@@ -77,3 +77,6 @@ coverage.xml
 .cache/
 *.bak
 *.swp
+
+
+REPOSITORY_DETAILS.md
